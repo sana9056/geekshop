@@ -19,7 +19,7 @@
 				<a href="index.html" class="logo"></a>
 				<ul class="menu">
 					<li><a href="/" class="active">домой</a></li>
-					<li><a href="{% url 'products' %}">продукты</a></li>
+					<li><a href="{% url 'products:index' %}">продукты</a></li>
 					<li><a href="{% url 'contact' %}">контакты</a></li>
 				</ul>
 				<a href="#" class="search"></a>
@@ -89,14 +89,15 @@
 					{% for product in products %}
 
 						<div class="block">
-							<a href="#"><img src="{% static product.image %}" alt="">
-								<div class="text">
-									<img src="{% static "img/icon-hover.png" %}" alt="img">
-									<h4>{{ product.name }}</h4>
-									<p>{{ product.description }} </p>
-								</div>
-							</a>
-						</div>
+						<a href="#">
+						  <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
+						  <div class="text">
+							<h3>{{ product.category.name }}</h3>
+							<h4>{{ product.name }}</h4>
+							<p>{{ product.description }}</p>
+						  </div>
+						</a>
+					  </div>
 
 					{% endfor %}
 
