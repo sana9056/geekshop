@@ -8,7 +8,7 @@ def products(request, pk=None):
     products = Product.objects.all()[:4]
 
     content = {'title': title, 'products': products}
-    return render(request, 'mainapp/index.html', content)
+    return render(request, 'mainapp/products.html', content)
     
 
 def contact(request):
