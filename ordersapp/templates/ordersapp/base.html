@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-
-{% load static%}
-
-<html lang="en">
+{% load staticfiles %}
+<html>
 <head>
   <meta charset="utf-8">
   <title>
        {% block title %}
-           {{ title|capfirst }}
+           {{ title|title }}
        {% endblock %}
    </title>
    {% block css %}
@@ -17,17 +15,15 @@
    {% endblock %}
    {% block js %}
        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-       <script src="{% static 'js/bootstrap.min.js' %}"></script>
+       <script src="{% static 'js/orders_scripts.js' %}"></script>
    {% endblock %}
 </head>
-
 <body>
-{% block container %}
+  <div class="order_container">
+       {% block content %}
 
-{% endblock %}
+       {% endblock %}
 
-{% block footer %}
-
-{% endblock %}
+  </div>
 </body>
 </html>
