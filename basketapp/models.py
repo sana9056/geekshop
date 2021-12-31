@@ -1,12 +1,23 @@
 from django.db import models
 from django.conf import settings
 from mainapp.models import Product
+from ordersapp.models import BasketQuerySet
 
 class Basket(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='basket')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
     add_datetime = models.DateTimeField(verbose_name='время', auto_now_add=True)
+    objects = BasketQuerySet.as_manager()
+    # переопределяем метод, сохранения объекта
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.product.quantity -= self.quantity - \
+                                     self.__class__.get_item(self.pk).quantity
+        else:
+            self.product.quantity -= self.quantity
+        self.product.save()
+        super(self.__class__, self).save(*args, **kwargs)
 
 @property
 def product_cost(self):
